@@ -4,6 +4,8 @@ module Api
   module V1
     # API Base Controller
     class ApiController < ApplicationController
+      include ActionController::Serialization
+
       before_action :authenticate_request
 
       private

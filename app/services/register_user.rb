@@ -2,7 +2,9 @@
 
 # User Registration service
 class RegisterUser
-  attr_reader :user_params
+  PERMITED_PARAMS = %i[first_name last_name email phone_number bio password password_confirmation]
+
+  include Dry::Monads[:result, :do]
 
   class << self
     def call(user_params)
@@ -10,17 +12,34 @@ class RegisterUser
     end
   end
 
+  attr_reader :user_params
+
   def initialize(user_params)
     @user_params = user_params
   end
 
   def call
-    user = User.new(user_params)
+    user = yield register_user(user_params)
+    token = yield generate_auth_token(user.id)
+
+    Success(OpenStruct.new({ code: 201, user: user, auth_token: token }))
+  end
+
+  private
+
+  def generate_auth_token(user_id)
+    token = JsonWebToken.encode(user_id: user_id)
+
+    Success(token)
+  end
+
+  def register_user(params)
+    user = User.new(params)
 
     if user.save
-      OpenStruct.new({ success?: true, user: user })
+      Success(user)
     else
-      OpenStruct.new({ success?: false, message: user.errors.full_messages.join(",") })
+      Failure(OpenStruct.new({ code: 422, message: user.errors.full_messages.join(",") }))
     end
   end
 end

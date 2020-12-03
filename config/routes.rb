@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   scope module: :api, defaults: { format: :json } do
     namespace :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      resources :users, only: %i[index create]
+      resources :users, only: %i[index create show update]
       resources :authentication, only: %i[create destroy]
     end
   end
