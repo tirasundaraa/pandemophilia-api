@@ -27,6 +27,7 @@ gem 'rack-cors'
 
 gem 'jwt'
 gem 'active_model_serializers'
+gem 'dry-monads'
 
 group :development, :test do
   gem 'faker'
