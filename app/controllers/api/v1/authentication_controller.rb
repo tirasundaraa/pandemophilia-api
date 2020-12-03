@@ -7,12 +7,12 @@ module Api
       skip_before_action :authenticate_request, only: [:create]
 
       def create
-        auth = ::AuthenticateUser.new(email: auth_params[:email], password: auth_params[:password])
+        auth = AuthServices::AuthenticateUser.call(auth_params)
 
-        if token_auth = auth.call
-          render json: { token: token_auth }
+        if auth.success?
+          render json: { auth_token: auth.success.token }
         else
-          render json: { error: true, message: 'wrong email and/or password' }, status: :unauthorized
+          render json: { error: true, message: auth.failure.message }, status: auth.failure.code
         end
       end
 
