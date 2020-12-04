@@ -18,7 +18,7 @@ class UserQuery
 
   def call
     scoped = filter_by_pandemophilia(default_scope, query_params)
-    scoped.order(created_at: :desc)
+    scoped.order(id: :desc)
   end
 
   private

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+User.destroy_all
 
 User.create!(
   first_name: 'Bob',
@@ -22,4 +23,13 @@ User.create!(
     bio: Faker::Lorem.sentence,
     is_pandemophilia: i.odd?
   )
+end
+
+# Interest
+Interest.destroy_all
+
+INTEREST_NAMES = %i[art sport music movies animal reading writing blogging hiking mystery games finance food photography travel dance].freeze
+
+INTEREST_NAMES.map do |interest_name|
+  Interest.create!(name: interest_name)
 end

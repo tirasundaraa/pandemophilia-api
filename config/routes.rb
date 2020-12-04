@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       put 'my_profile/update', to: 'users#update'
       put 'my_profile/toggle_pandemophilia', to: 'users#toggle_pandemophilia'
 
+      resources :interests, only: %i[index]
+
       resources :authentication, only: %i[create destroy]
     end
   end
