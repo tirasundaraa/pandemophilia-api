@@ -8,7 +8,7 @@ module Api
       skip_before_action :authenticate_request, only: [:create]
 
       def index
-        @users = UserQuery.call(params)
+        @users = UserQuery.call(params, includes: :interests, exclude_ids: current_user.id)
 
         render json: @users
       end
@@ -57,7 +57,21 @@ module Api
         end
       end
 
+      def interests
+        result = UserServices::AddUserInterests.call(current_user.id, interest_ids: user_interests_params[:interest_ids])
+
+        if result.success?
+          render json: result.success.user
+        else
+          render json: { error: true, message: result.failure.message }, status: result.failure.code
+        end
+      end
+
       private
+
+      def user_interests_params
+        params.require(:user).permit(interest_ids: [])
+      end
 
       def user_params
         params.require(:user).permit(UserServices::Common::PERMITED_PARAMS)

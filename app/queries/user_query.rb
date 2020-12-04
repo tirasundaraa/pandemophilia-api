@@ -4,20 +4,23 @@
 class UserQuery
 
   class << self
-    def call(query_params)
-      new(query_params).call
+    def call(query_params, options = {})
+      new(query_params, options).call
     end
   end
 
-  attr_reader :query_params
+  attr_reader :query_params, :options
 
-  def initialize(query_params)
+  def initialize(query_params, options = {})
     @default_scope  = User.all
+    @default_scope  = @default_scope.includes(options[:includes]) if options[:includes]
     @query_params   = query_params
+    @options        = options
   end
 
   def call
-    scoped = filter_by_pandemophilia(default_scope, query_params)
+    scoped = filter_by_excluded_ids(default_scope, options[:exclude_ids]) if options[:exclude_ids]
+    scoped = filter_by_pandemophilia(scoped, query_params)
     scoped.order(id: :desc)
   end
 
@@ -33,5 +36,9 @@ class UserQuery
     return scope.not_pandemophilia unless is_pandemophilia
 
     scope.pandemophilia
+  end
+
+  def filter_by_excluded_ids(scope, user_ids)
+    scope.where.not(id: Array(user_ids))
   end
 end

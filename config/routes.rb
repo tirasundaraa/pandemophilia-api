@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get :my_profile, to: 'users#my_profile'
       put 'my_profile/update', to: 'users#update'
       put 'my_profile/toggle_pandemophilia', to: 'users#toggle_pandemophilia'
+      post 'my_profile/interests', to: 'users#interests'
 
       resources :interests, only: %i[index]
 

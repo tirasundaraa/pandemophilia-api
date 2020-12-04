@@ -5,6 +5,8 @@ class User < ApplicationRecord
   scope :not_pandemophilia, -> () { where(is_pandemophilia: [false, nil]) }
 
   has_secure_password
+  has_many :user_interests, dependent: :destroy
+  has_many :interests, through: :user_interests
 
   validates_presence_of :first_name
   validates_uniqueness_of :email, :phone_number
