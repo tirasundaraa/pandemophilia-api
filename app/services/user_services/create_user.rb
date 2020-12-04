@@ -38,7 +38,7 @@ module UserServices
       if user.save
         Success(user)
       else
-        Failure(OpenStruct.new({ code: 422, message: user.errors.full_messages.join(",") }))
+        Failure(OpenStruct.new({ code: 422, message: user.errors.messages }))
       end
     end
   end
