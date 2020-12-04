@@ -43,6 +43,15 @@ module Api
         end
       end
 
+      def destroy
+        user = User.find(params[:id])
+        user.destroy
+        render json: { error: false, message: 'delete success' }
+
+      rescue ActiveRecord::RecordNotFound => e
+        render json: { error: true, message: e.message }, status: 404
+      end
+
       def my_profile
         render json: current_user
       end
