@@ -28,9 +28,9 @@ gem 'rack-cors'
 gem 'jwt'
 gem 'active_model_serializers'
 gem 'dry-monads'
+gem 'faker'
 
 group :development, :test do
-  gem 'faker'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
