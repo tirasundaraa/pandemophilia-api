@@ -34,12 +34,26 @@ module Api
       end
 
       def update
-        user_update = UserServices::UpdateUser.call(params[:id], user_params)
+        user_update = UserServices::UpdateUser.call(current_user.id, user_params)
 
         if user_update.success?
           render json: user_update.success.user
         else
           render json: { error: true, message: user_update.failure.message }, status: user_update.failure.code
+        end
+      end
+
+      def my_profile
+        render json: current_user
+      end
+
+      def toggle_pandemophilia
+        toggle_pandemophilia = UserServices::TogglePandemophilia.call(current_user.id)
+
+        if toggle_pandemophilia.success?
+          render json: toggle_pandemophilia.success.user
+        else
+          render json: { error: true, message: toggle_pandemophilia.failure.message }, status: toggle_pandemophilia.failure.code
         end
       end
 

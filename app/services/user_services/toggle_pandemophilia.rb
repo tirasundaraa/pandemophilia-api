@@ -1,35 +1,34 @@
 # frozen_string_literal: true
 
 module UserServices
-  # UpdateUser service
-  class UpdateUser
+  # TogglePandemophilia service
+  class TogglePandemophilia
     include Common
     include Dry::Monads[:do]
 
     class << self
-      def call(user_id, user_params)
-        new(user_id, user_params).call
+      def call(user_id)
+        new(user_id).call
       end
     end
 
-    attr_reader :user_id, :user_params
+    attr_reader :user_id
 
-    def initialize(user_id, user_params)
-      @user_id      = user_id
-      @user_params  = user_params
+    def initialize(user_id)
+      @user_id = user_id
     end
 
     def call
       user = yield find_user(user_id)
-      user = yield update_user(user, user_params)
+      user = yield toggle_pandemophilia(user)
 
       Success(OpenStruct.new({ user: user }))
     end
 
     private
 
-    def update_user(user, params)
-      if user.update(params)
+    def toggle_pandemophilia(user)
+      if user.toggle(:is_pandemophilia).save
         Success(user)
       else
         Failure(OpenStruct.new({ code: 422, message: user.errors.messages }))

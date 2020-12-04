@@ -8,5 +8,5 @@ class User < ApplicationRecord
 
   validates_presence_of :first_name
   validates_uniqueness_of :email, :phone_number
-  validates_length_of :password, in: 8..32
+  validates_length_of :password, in: 8..32, allow_blank: true
 end

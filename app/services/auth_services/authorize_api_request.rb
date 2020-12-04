@@ -20,7 +20,7 @@ module AuthServices
     def call
       token = yield acquire_auth_token(headers)
       decoded_token = yield decode_auth_token(token)
-      user = find_user(decoded_token[:user_id])
+      user = yield find_user(decoded_token[:user_id])
 
       Success(OpenStruct.new({ user: user }))
     end
