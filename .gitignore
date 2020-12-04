@@ -32,3 +32,4 @@ db/*.sqlite3
 .env.*
 
 /config/credentials/production.key
+/public/uploads
