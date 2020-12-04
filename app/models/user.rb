@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  scope :pandemophilia, -> () { where(is_pandemophilia: true) }
+  scope :not_pandemophilia, -> () { where(is_pandemophilia: [false, nil]) }
+
   has_secure_password
 
   validates_presence_of :first_name

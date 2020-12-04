@@ -8,7 +8,7 @@ module Api
       skip_before_action :authenticate_request, only: [:create]
 
       def index
-        @users = User.order(id: :desc)
+        @users = UserQuery.call(params)
 
         render json: @users
       end
