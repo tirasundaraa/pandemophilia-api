@@ -24,7 +24,7 @@ user = User.create!(
   is_pandemophilia: true,
   avatar: 'https://media4.s-nbcnews.com/j/newscms/2019_45/3082841/191104-jungkook-bts-cs-1022a_07aaee52b9a979bada7386d8b5934c84.fit-760w.jpg'
 ) unless User.find_by(email: 'bob@example.com')
-user.interest_ids = INTEREST_IDS.sample(3)
+user.interest_ids = INTEREST_IDS.sample(3) if user
 
 IMAGE_URLS = %w[
   https://www.deccanherald.com/sites/dh/files/styles/article_detail/public/article_images/2020/05/19/file78t1uwxtc48ldc0s1z6-1879176103-1578811466.jpg
