@@ -21,7 +21,7 @@ user = User.create!(
   phone_number: Faker::PhoneNumber.cell_phone_with_country_code,
   password: '12312312',
   password_confirmation: '12312312',
-  bio: 'Animal lover',
+  bio: Faker::Quote.most_interesting_man_in_the_world,
   is_pandemophilia: true
 )
 
@@ -37,7 +37,7 @@ user.interest_ids = INTEREST_IDS.sample(3)
     phone_number: Faker::PhoneNumber.cell_phone_with_country_code,
     password: '12312312',
     password_confirmation: '12312312',
-    bio: Faker::Lorem.sentence,
+    bio: Faker::Quote.most_interesting_man_in_the_world,
     is_pandemophilia: i.odd?,
   )
 

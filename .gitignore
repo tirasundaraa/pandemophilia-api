@@ -33,3 +33,4 @@ db/*.sqlite3
 
 /config/credentials/production.key
 /public/uploads
+/public/images/uploads
