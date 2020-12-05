@@ -10,6 +10,7 @@ module Api
       attribute :auth_token, if: :auth_token?
 
       has_many :interests
+      has_one :question_answer
 
       def auth_token
         instance_options[:auth_token]

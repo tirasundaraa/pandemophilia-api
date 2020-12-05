@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :user_interests, dependent: :destroy
   has_many :interests, through: :user_interests
+  has_one :question_answer, dependent: :destroy
 
   mount_uploader :avatar, AvatarUploader
 

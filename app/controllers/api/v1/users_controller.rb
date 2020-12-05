@@ -67,7 +67,7 @@ module Api
       end
 
       def interests
-        result = UserServices::AddUserInterests.call(current_user.id, interest_ids: user_interests_params[:interest_ids])
+        result = UserServices::AddUserInterests.call(current_user.id, user_interests_params)
 
         if result.success?
           render json: result.success.user
@@ -79,7 +79,7 @@ module Api
       private
 
       def user_interests_params
-        params.require(:user).permit(interest_ids: [])
+        params.require(:user).permit(:question, :answer, interest_ids: [])
       end
 
       def user_params

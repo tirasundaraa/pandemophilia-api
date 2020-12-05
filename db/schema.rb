@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_151045) do
+ActiveRecord::Schema.define(version: 2020_12_05_010017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(version: 2020_12_04_151045) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_interests_on_name"
+  end
+
+  create_table "question_answers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "question"
+    t.string "answer"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_question_answers_on_user_id"
   end
 
   create_table "user_interests", force: :cascade do |t|
@@ -45,6 +54,7 @@ ActiveRecord::Schema.define(version: 2020_12_04_151045) do
     t.index ["is_pandemophilia"], name: "index_users_on_is_pandemophilia"
   end
 
+  add_foreign_key "question_answers", "users"
   add_foreign_key "user_interests", "interests"
   add_foreign_key "user_interests", "users"
 end
