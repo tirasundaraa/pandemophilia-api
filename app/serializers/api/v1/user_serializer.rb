@@ -12,6 +12,14 @@ module Api
       has_many :interests
       has_one :question_answer
 
+      def avatar_url
+        if object.avatar.present?
+          object.avatar
+        else
+          'http://pandemophilia-api.herokuapp.com/images/fallback/default.png'
+        end
+      end
+
       def auth_token
         instance_options[:auth_token]
       end

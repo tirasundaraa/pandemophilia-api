@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :interests, through: :user_interests
   has_one :question_answer, dependent: :destroy
 
-  mount_uploader :avatar, AvatarUploader
+  # mount_uploader :avatar, AvatarUploader
 
   validates_presence_of :first_name
   validates_uniqueness_of :email, :phone_number
